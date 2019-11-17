@@ -1,0 +1,63 @@
+<html>
+
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+    integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+    crossorigin="anonymous">
+
+  <title>pl.seequality.net create featured image</title>
+</head>
+
+<body>
+
+
+  <div class="container">
+
+
+    <h1>Genrate featured image</h1>
+    <p>text text text text text text text text text text text text text text</p>
+    <div class="row">
+      <form action="." method="POST">
+        <textarea class="form-control" name="title" placeholder="title"></textarea>
+        <textarea class="form-control" name="subtitle" placeholder="subtitle"></textarea>
+        </br>
+        <input type="submit" id="send" class="btn btn-success" value="generate">
+        <label for="send">{{ return_status }}</label>
+      </form>
+    </div>
+
+
+  </div>
+
+
+  {% if show_featured_image %}
+  <div class="container">
+    <h1>Preview</h1>
+    <p>Preview of the generated image. Click on image to preview in full resolution</p>
+    <a href={{ generate_image_path }} target="_blank">
+      <img src={{ generate_image_path }} width="25%" height="25%" alt="generate image" />
+    </a>
+
+    </br>
+    <h1>Download</h1>
+    <p>Save generated image to local computer</p>
+    <div class="row">
+      <form action="download" method="POST">
+        <textarea style="display:none" class="form-control" placeholder="subtitle"
+          name="output_image_path">{{generate_image_path}}</textarea>
+        <input type="submit" class="btn btn-success" value="download">
+      </form>
+    </div>
+
+  </div>
+  {% endif %}
+
+</body>
+
+</html>
