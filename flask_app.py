@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import Flask, redirect, render_template, request, url_for, send_from_directory, send_file
+from flask_autoindex import AutoIndex
 import os
 import sys
 from FeaturedImageCreatorService.FeaturedImageCreatorService import FeaturedImageCreatorService
@@ -24,10 +25,6 @@ def index():
     elif request.method == "POST":
         title = request.form["title"]
         subtitle = request.form["subtitle"]
-        if len(title) == 0:
-            title = "a-B-c-D-e-F-g-H-i-J-k-L-m-N-o-P-r-S-t-U-w-Y-z"
-        if len(subtitle) == 0:
-            subtitle = "A-b-C-d-E-f-G-h-I-j-K-l-M-n-O-p-R-s-T-u-W-y-Z-1-2-3-4-5-6-7-8"
         s = FeaturedImageCreatorService()
         generate_image_path = s.generate_featured_image(title, subtitle)
         return_code = "Image generated succesfully"

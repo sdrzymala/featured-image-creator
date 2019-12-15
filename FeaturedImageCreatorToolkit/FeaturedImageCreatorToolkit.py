@@ -74,12 +74,14 @@ class FeaturedImageCreatorToolkit:
 
 
 
-    def image_add_text(self, font_path, font_size, text, text_location_x, text_location_y, text_color):
+    def image_add_text(self, font_path, font_size, text, text_location_x, text_location_y, text_color, textbox_length):
 
         img = self.current_image
         draw = ImageDraw.Draw(img)
         font = ImageFont.truetype(font_path, font_size)
-        draw.text((text_location_x, text_location_y),text,font=font, fill=text_color)
+        w,h = font.getsize(text)
+        text_start_location = ((textbox_length - (text_location_x*2)) - w)/2
+        draw.text((text_start_location, text_location_y),text,font=font, fill=text_color)
         self.current_image = img
 
 
