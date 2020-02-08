@@ -24,9 +24,9 @@
     <p>text text text text text text text text text text text text text text</p>
     <div class="row">
       <form action="." method="POST">
-        <textarea class="form-control" name="title" placeholder="title"></textarea>
-        <textarea class="form-control" name="subtitle" placeholder="subtitle"></textarea>
-        </br>
+        <textarea class="form-control" name="title" placeholder="title">{{ title }}</textarea>
+        <textarea class="form-control" name="subtitle" placeholder="subtitle">{{ subtitle }}</textarea>
+        <textarea class="form-control" name="imageurl" placeholder="imageurl">{{ imageurl }}</textarea>
         <input type="submit" id="send" class="btn btn-success" value="generate">
         <label for="send">{{ return_status }}</label>
       </form>

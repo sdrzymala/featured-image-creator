@@ -5,16 +5,50 @@ from PIL import ImageFont
 from PIL import ImageDraw 
 from PIL import ImageEnhance
 import uuid
+import re
+import urllib.request, json
+import requests
 
 class FeaturedImageCreatorToolkit:
 
 
-
+    
 
     def __init__(self):
         self.current_image = None
 
+        # read config file
+        with open('config.json') as f:
+            data = json.load(f)
+        self.pixabay_api_key = data["pixabay_api_key"]
+    
 
+
+    def download_image(self, imageurl, img_save_to_path):
+        
+        current_image_path = None
+
+        image_id_candidate = str(imageurl).split("-")[-1]
+        image_id = re.sub('\D', '', image_id_candidate)
+        pixabay_api_call_url = "https://pixabay.com/api/" + "?key=" + self.pixabay_api_key + "&id=" + image_id
+        
+        try:
+            with urllib.request.urlopen(pixabay_api_call_url) as url:
+                response = json.loads(url.read().decode())
+                image_url = response["hits"][0]["largeImageURL"]
+                
+                if image_url != None:
+                    Picture_request = requests.get(image_url)
+                    if Picture_request.status_code == 200:
+                        current_image_path = img_save_to_path + str(uuid.uuid4().hex) + ".png"
+                        with open(current_image_path, 'wb') as f:
+                            f.write(Picture_request.content)
+        except Exception as e:
+            raise
+
+        return current_image_path
+    
+    
     def load_base_image(self,img_input_path):
         img = Image.open(img_input_path)
         self.current_image = img.convert("RGBA")

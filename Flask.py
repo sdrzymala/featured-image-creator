@@ -1,6 +1,5 @@
 from flask import Flask
 from flask import Flask, redirect, render_template, request, url_for, send_from_directory, send_file
-from flask_autoindex import AutoIndex
 import os
 import sys
 from FeaturedImageCreatorService.FeaturedImageCreatorService import FeaturedImageCreatorService
@@ -8,7 +7,8 @@ from FeaturedImageCreatorService.FeaturedImageCreatorService import FeaturedImag
 #vide: https://blog.pythonanywhere.com/121/
 
 app = Flask(__name__)
-app.config["DEBUG"] = True
+#app.config["DEBUG"] = True
+
 
 return_code = ""
 generate_image_path = ""
@@ -16,6 +16,10 @@ show_featured_image = False
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+
+    title = ""
+    subtitle = ""
+    imageurl = ""
 
     if request.method == "GET":
         return_code = ""
@@ -25,12 +29,14 @@ def index():
     elif request.method == "POST":
         title = request.form["title"]
         subtitle = request.form["subtitle"]
+        imageurl = request.form["imageurl"]
+    
         s = FeaturedImageCreatorService()
-        generate_image_path = s.generate_featured_image(title, subtitle)
+        generate_image_path = s.generate_featured_image(title, subtitle, imageurl)
         return_code = "Image generated succesfully"
         show_featured_image = True
     
-    return render_template("main_page.html", return_status=return_code, generate_image_path = generate_image_path, show_featured_image=show_featured_image)
+    return render_template("main_page.html", return_status=return_code, generate_image_path = generate_image_path, show_featured_image=show_featured_image, title = title, subtitle = subtitle, imageurl = imageurl)
 
 @app.route("/download", methods=["GET", "POST"])
 def download():

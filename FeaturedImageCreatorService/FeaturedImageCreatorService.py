@@ -5,13 +5,26 @@ class FeaturedImageCreatorService:
     def __init__(self):
         pass
         
-    def generate_featured_image(self, title, subtitle):
+    def generate_featured_image(self, title, subtitle, imageurl):
+            
             
         ### Create featured image
         featuredImage = FeaturedImageCreatorToolkit()
 
+
+        #TODO add check for title and subtitle
+        # if len(title) == 0:
+        #     title = "a-B-c-D-e-F-g-H-i-J-k-L-m-N-o-P-r-S-t-U-w-Y-z"
+        # if len(subtitle) == 0:
+        #     subtitle = "A-b-C-d-E-f-G-h-I-j-K-l-M-n-O-p-R-s-T-u-W-y-Z-1-2-3-4-5-6-7-8"
+        
+
+        img_save_to_path = "./static/src/download/"
+        selected_image_path = featuredImage.download_image(imageurl, img_save_to_path)
+
         # load image
-        img_input_path = './static/src/background/background (1).jpg' 
+        #img_input_path = './static/src/background/background (1).jpg' 
+        img_input_path = selected_image_path
         featuredImage.load_base_image(img_input_path)
 
         # resize image
@@ -26,10 +39,10 @@ class FeaturedImageCreatorService:
         #featuredImage.image_append_another_image(logo_image_path, use_transparency_mask, logo_location_x, logo_location_y)
 
         # add logo transparent
-        logo_image_path = './static/src/logo/logo_transparent_gradient_small.png'
-        use_transparency_mask = True
-        logo_location_x = 250
-        logo_location_y = 650
+        logo_image_path = './static/src/logo/logo_small.png'
+        use_transparency_mask = False
+        logo_location_x = 450
+        logo_location_y = 731
         featuredImage.image_append_another_image(logo_image_path, use_transparency_mask, logo_location_x, logo_location_y)
 
         # add rectangle
