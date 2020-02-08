@@ -13,30 +13,20 @@ class FeaturedImageCreatorService:
 
 
         #TODO add check for title and subtitle
-        # if len(title) == 0:
-        #     title = "a-B-c-D-e-F-g-H-i-J-k-L-m-N-o-P-r-S-t-U-w-Y-z"
-        # if len(subtitle) == 0:
-        #     subtitle = "A-b-C-d-E-f-G-h-I-j-K-l-M-n-O-p-R-s-T-u-W-y-Z-1-2-3-4-5-6-7-8"
+        title, subtitle = featuredImage.handle_text(title, subtitle)
         
 
         img_save_to_path = "./static/src/download/"
         selected_image_path = featuredImage.download_image(imageurl, img_save_to_path)
 
         # load image
-        #img_input_path = './static/src/background/background (1).jpg' 
         img_input_path = selected_image_path
         featuredImage.load_base_image(img_input_path)
 
         # resize image
         basewidth = 1200
-        featuredImage.image_resize(basewidth)
-
-        # add logo
-        #logo_image_path = './static/src/logo/logo.png'
-        #use_transparency_mask = False
-        #logo_location_x = 0
-        #logo_location_y = 20
-        #featuredImage.image_append_another_image(logo_image_path, use_transparency_mask, logo_location_x, logo_location_y)
+        x,y = featuredImage.image_resize(basewidth)
+        #TODO calculate proper location of logo and text
 
         # add logo transparent
         logo_image_path = './static/src/logo/logo_small.png'
@@ -86,6 +76,11 @@ class FeaturedImageCreatorService:
         output_image_file_path = featuredImage.save_image(output_image_folder_path, output_format, quality_val)
         
         
+
+        completed_succesfully, return_msg = featuredImage.get_return_msg()
+
+
+
         ### return file image path
-        return output_image_file_path
+        return output_image_file_path, completed_succesfully, return_msg
 

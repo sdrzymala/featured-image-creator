@@ -10,7 +10,6 @@ app = Flask(__name__)
 #app.config["DEBUG"] = True
 
 
-return_code = ""
 generate_image_path = ""
 show_featured_image = False
 
@@ -22,7 +21,8 @@ def index():
     imageurl = ""
 
     if request.method == "GET":
-        return_code = ""
+        response_msg = ""
+        completed_succesfully = None
         generate_image_path = ""
         show_featured_image = False
         
@@ -32,11 +32,11 @@ def index():
         imageurl = request.form["imageurl"]
     
         s = FeaturedImageCreatorService()
-        generate_image_path = s.generate_featured_image(title, subtitle, imageurl)
-        return_code = "Image generated succesfully"
+        generate_image_path, completed_succesfully, response_msg = s.generate_featured_image(title, subtitle, imageurl)
+        
         show_featured_image = True
     
-    return render_template("main_page.html", return_status=return_code, generate_image_path = generate_image_path, show_featured_image=show_featured_image, title = title, subtitle = subtitle, imageurl = imageurl)
+    return render_template("main_page.html", completed_succesfully=completed_succesfully, generate_image_path = generate_image_path, show_featured_image=show_featured_image, title = title, subtitle = subtitle, imageurl = imageurl,response_msg = response_msg)
 
 @app.route("/download", methods=["GET", "POST"])
 def download():

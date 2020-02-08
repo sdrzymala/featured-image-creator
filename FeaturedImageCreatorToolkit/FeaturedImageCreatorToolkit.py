@@ -16,12 +16,38 @@ class FeaturedImageCreatorToolkit:
 
     def __init__(self):
         self.current_image = None
+        self.return_msg = ""
 
         # read config file
         with open('config.json') as f:
             data = json.load(f)
         self.pixabay_api_key = data["pixabay_api_key"]
     
+    def get_return_msg(self):
+        if self.return_msg == "":
+            completed_succesfully = True
+            self.return_msg = "Completed succesfully"
+        else:
+            self.return_msg = "There was an error: " + self.return_msg
+            completed_succesfully = False
+
+        return completed_succesfully, self.return_msg
+
+    def handle_text(self, title, subtitle):
+
+        if len(title) == 0 or len(subtitle) == 0:
+            self.return_msg += "Title and subtitle cannot be empty\n" 
+        elif len(title) > 44 or len(subtitle) > 60:  
+            self.return_msg += "Title or subtitle too long\n"
+        else:
+            #TODO handle texts, add spaces to justify
+            title = title
+            subtitle = subtitle
+            #title = "a-B-c-D-e-F-g-H-i-J-k-L-m-N-o-P-r-S-t-U-w-Y-z"
+            #subtitle = "A-b-C-d-E-f-G-h-I-j-K-l-M-n-O-p-R-s-T-u-W-y-Z-1-2-3-4-5-6-7-8"
+        
+        return title, subtitle
+
 
 
     def download_image(self, imageurl, img_save_to_path):
@@ -65,7 +91,10 @@ class FeaturedImageCreatorToolkit:
         wpercent = (basewidth/float(img.size[0]))
         hsize = int((float(img.size[1])*float(wpercent)))
         img = img.resize((basewidth,hsize), Image.ANTIALIAS)
+        x = img.size[0]
+        y = img.size[1]
         self.current_image = img
+        return x,y
 
 
 

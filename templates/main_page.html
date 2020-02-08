@@ -24,11 +24,12 @@
     <p>text text text text text text text text text text text text text text</p>
     <div class="row">
       <form action="." method="POST">
-        <textarea class="form-control" name="title" placeholder="title">{{ title }}</textarea>
-        <textarea class="form-control" name="subtitle" placeholder="subtitle">{{ subtitle }}</textarea>
-        <textarea class="form-control" name="imageurl" placeholder="imageurl">{{ imageurl }}</textarea>
+        <textarea style="resize: none;" class="form-control" name="title" placeholder="title" rows="1">{{ title }}</textarea>
+        <textarea style="resize: none;" class="form-control" name="subtitle" placeholder="subtitle" rows="1">{{ subtitle }}</textarea>
+        <textarea style="resize: none;" class="form-control" name="imageurl" placeholder="imageurl" rows="1">{{ imageurl }}</textarea>
         <input type="submit" id="send" class="btn btn-success" value="generate">
-        <label for="send">{{ return_status }}</label>
+        {% if not completed_succesfully %}<label for="send"><font color="red">{{ response_msg }}</font></label>{% endif %}
+        {% if completed_succesfully %}<label for="send"><font color="green">{{ response_msg }}</font></label>{% endif %}
       </form>
     </div>
 
