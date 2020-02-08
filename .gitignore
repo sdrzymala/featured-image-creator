@@ -1,5 +1,7 @@
 # custom
 *static/output/*.PNG
+*static/src/download/*.PNG
+config.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
