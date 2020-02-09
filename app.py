@@ -21,7 +21,7 @@ def webhook():
     
     try:
         for remote in repo.remotes:
-            remote.fetch()
+            remote.git.fetch()
         msg = repo.git.merge("master")
         return msg
     except Exception as e:
