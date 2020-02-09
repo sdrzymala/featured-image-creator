@@ -1,23 +1,28 @@
 from FeaturedImageCreatorToolkit.FeaturedImageCreatorToolkit import FeaturedImageCreatorToolkit
 
+
+
+
 class FeaturedImageCreatorService:
     
+
+
+
     def __init__(self):
         pass
-        
+
+
+
+
     def generate_featured_image(self, title, subtitle, imageurl):
             
-
         try:
 
             ### Create featured image
             featuredImage = FeaturedImageCreatorToolkit()
 
-
             #check for title and subtitle
             title, subtitle = featuredImage.handle_text(title, subtitle)
-
-
             img_save_to_path = "./static/src/download/"
             selected_image_path = featuredImage.download_image(imageurl, img_save_to_path)
 
@@ -46,7 +51,6 @@ class FeaturedImageCreatorService:
             rectangle_transparency = 0.75
             featuredImage.image_add_rectangle_transparent(rectangle_xo, rectangle_y0, rectangle_x1, rectangle_y1, rectangle_fill_color, rectangle_transparency)
 
-
             # add text
             textbox_length = 1200
             font_path = "./static/src/font/segoeuib.ttf"
@@ -56,7 +60,6 @@ class FeaturedImageCreatorService:
             text_location_y = 410
             text_color = (255,215,0)
             featuredImage.image_add_text(font_path, font_size, text, text_location_x, text_location_y, text_color, textbox_length)
-
 
             # add text
             textbox_length = 1200
@@ -68,16 +71,11 @@ class FeaturedImageCreatorService:
             text_color = (255,215,0)
             featuredImage.image_add_text(font_path, font_size, text, text_location_x, text_location_y, text_color, textbox_length)
 
-
-
-
             ### save output image
             quality_val = 100
             output_image_folder_path = './static/output/'
             output_format = "PNG"
             output_image_file_path = featuredImage.save_image(output_image_folder_path, output_format, quality_val)
-
-
 
             # finalize
             return_msg = completed_succesfully = True
@@ -91,4 +89,3 @@ class FeaturedImageCreatorService:
             completed_succesfully = False
             return_msg = e
             return output_image_file_path, completed_succesfully, return_msg
-

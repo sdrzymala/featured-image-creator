@@ -4,10 +4,19 @@ import os
 import sys
 from FeaturedImageCreatorService.FeaturedImageCreatorService import FeaturedImageCreatorService
 
+
+
+
 app = Flask(__name__)
 
-generate_image_path = ""
-show_featured_image = False
+
+
+
+if __name__ == "__main__":
+    app.run()
+
+
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -15,6 +24,7 @@ def index():
     title = ""
     subtitle = ""
     imageurl = ""
+    generate_image_path = ""
     show_featured_image = False
 
     if request.method == "GET":
@@ -36,12 +46,11 @@ def index():
     
     return render_template("main_page.html", completed_succesfully=completed_succesfully, generate_image_path = generate_image_path, show_featured_image=show_featured_image, title = title, subtitle = subtitle, imageurl = imageurl,response_msg = response_msg)
 
+
+
+
 @app.route("/download", methods=["GET", "POST"])
 def download():
     
     image_to_download_path = request.form["output_image_path"]
     return send_file(image_to_download_path, as_attachment=True)
-    
-
-if __name__ == "__main__":
-    app.run()

@@ -20,7 +20,6 @@ class ToolkitException(Exception):
 class FeaturedImageCreatorToolkit:
 
     def __init__(self):
-        logging.basicConfig(filename='log.log',level=logging.DEBUG)
         self.current_image = None
         self.return_msg = ""
 
@@ -30,7 +29,7 @@ class FeaturedImageCreatorToolkit:
                 data = json.load(f)
             self.pixabay_api_key = data["pixabay_api_key"]
         except Exception as e:
-            logging.debug(str(e))
+            logging.error(str(e))
             raise ToolkitException("Internal error while reading config file. Contact adinistrator")
     
     def handle_text(self, title, subtitle):
@@ -50,7 +49,6 @@ class FeaturedImageCreatorToolkit:
 
     def download_image(self, imageurl, img_save_to_path):
         
-        logging.debug("oo")
         current_image_path = None
 
         image_id_candidate = str(imageurl).split("-")[-1]
@@ -66,7 +64,7 @@ class FeaturedImageCreatorToolkit:
                 image_url = response["hits"][0]["largeImageURL"]
                 
         except Exception as e:
-            logging.debug(str(e))
+            logging.error(str(e))
             raise ToolkitException("There as an error when downloading the image from pixabay. Check URL and try again")
         
         if image_url != None:
@@ -77,13 +75,12 @@ class FeaturedImageCreatorToolkit:
                     with open(current_image_path, 'wb') as f:
                         f.write(Picture_request.content)
             except Exception as e:
-                logging.debug(str(e))
+                logging.error(str(e))
                 raise ToolkitException("There as an error when downloading the image from pixabay. Please contact administrator")
 
         return current_image_path
     
     def load_base_image(self,img_input_path):
-        logging.debug("sdadsadas")
         img = Image.open(img_input_path)
         self.current_image = img.convert("RGBA")
       
@@ -93,7 +90,6 @@ class FeaturedImageCreatorToolkit:
         return img_output_path
     
     def image_resize(self,basewidth):
-
         img = self.current_image
         wpercent = (basewidth/float(img.size[0]))
         hsize = int((float(img.size[1])*float(wpercent)))
