@@ -4,11 +4,7 @@ import os
 import sys
 from FeaturedImageCreatorService.FeaturedImageCreatorService import FeaturedImageCreatorService
 
-#vide: https://blog.pythonanywhere.com/121/
-
 app = Flask(__name__)
-#app.config["DEBUG"] = True
-
 
 generate_image_path = ""
 show_featured_image = False
