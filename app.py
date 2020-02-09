@@ -17,6 +17,8 @@ if __name__ == "__main__":
     app.run()
 
 
+
+
 @app.route('/update_project', methods=['GET','POST'])
 def webhook():
     repo = git.Repo('/home/sdrzymala/featured-image-creator')
