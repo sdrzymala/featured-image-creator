@@ -22,9 +22,9 @@ def webhook():
     try:
         origin = repo.remotes.origin
         msg = origin.pull()
-        return msg, 200
+        return msg
     except Exception as e:
-        return str(e), 400
+        return str(e)
     
 
 
