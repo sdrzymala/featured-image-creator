@@ -19,6 +19,8 @@ if __name__ == "__main__":
 def webhook():
     repo = git.Repo('/home/sdrzymala/featured-image-creator')
     origin = repo.remotes.origin
+    origin.fetch()
+    origin.merge()
     return "ok"
     
 
