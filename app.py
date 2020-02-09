@@ -20,7 +20,7 @@ if __name__ == "__main__":
 @app.route('/update_project', methods=['POST'])
 def webhook():
     if request.method == 'POST':
-        repo = git.Repo('/home/sdrzymala/featured-image-creator/')
+        repo = git.Repo('/home/sdrzymala/featured-image-creator')
         origin = repo.remotes.origin
 
 
