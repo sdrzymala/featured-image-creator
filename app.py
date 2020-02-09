@@ -19,8 +19,10 @@ if __name__ == "__main__":
 def webhook():
     repo = git.Repo('/home/sdrzymala/featured-image-creator')
     
+    msg = ""
     try:
-        for remote in repo.remotes:
+        for remote in repo.git.remotes:
+            msg += str(remote)
             remote.git.fetch()
         msg = repo.git.merge("master")
         return msg
