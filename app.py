@@ -17,12 +17,12 @@ if __name__ == "__main__":
 # vide https://medium.com/@aadibajpai/deploying-to-pythonanywhere-via-github-6f967956e664
 @app.route('/update_project', methods=['GET','POST'])
 def webhook():
-    repo = git.Repo('/home/sdrzymala/featured-image-creator/')
+    repo = git.Repo('/home/sdrzymala/featured-image-creator')
     
     try:
-        msg = ""
-        msg += repo.remotes.origin.git.fetch()
-        msg += repo.git.merge("master")
+        for remote in repo.remotes:
+            remote.fetch()
+        msg = repo.git.merge("master")
         return msg
     except Exception as e:
         return str(e)
