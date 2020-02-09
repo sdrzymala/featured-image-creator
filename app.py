@@ -14,7 +14,7 @@ app = Flask(__name__)
 if __name__ == "__main__":
     app.run()
 
-
+# vide https://medium.com/@aadibajpai/deploying-to-pythonanywhere-via-github-6f967956e664
 @app.route('/update_project', methods=['GET','POST'])
 def webhook():
     repo = git.Repo('/home/sdrzymala/featured-image-creator')
