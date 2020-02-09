@@ -23,7 +23,7 @@ def webhook():
         msg = ""
         msg += repo.git.fetch()
         msg += repo.git.merge("master")
-        return "ok"
+        return msg
     except Exception as e:
         return str(e)
     
