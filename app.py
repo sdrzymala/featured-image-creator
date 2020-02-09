@@ -23,7 +23,7 @@ def webhook():
         msg = ""
         origin = repo.remotes.origin
         msg = str(origin.pull())
-        return msg
+        return "ok"
     except Exception as e:
         return str(e)
     
