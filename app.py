@@ -38,6 +38,7 @@ def index():
 
 @app.route("/download", methods=["GET", "POST"])
 def download():
+    
     image_to_download_path = request.form["output_image_path"]
     return send_file(image_to_download_path, as_attachment=True)
     

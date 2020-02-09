@@ -10,27 +10,15 @@ import urllib.request, json
 import requests
 import logging
 import time
+import traceback
 
-def timeit(method):
-    def timed(*args, **kw):
-        ts = time.time()
-        result = method(*args, **kw)
-        te = time.time()
-        if 'log_time' in kw:
-            name = kw.get('log_name', method.__name__.upper())
-            kw['log_time'][name] = int((te - ts) * 1000)
-        else:
-            msg = "{0} {1} ms".format(method.__name__, (te - ts) * 1000)
-            logging.debug(msg)
-        return result
-    return timed
+
 
 class ToolkitException(Exception):
     pass
 
 class FeaturedImageCreatorToolkit:
 
-    @timeit
     def __init__(self):
         logging.basicConfig(filename='log.log',level=logging.DEBUG)
         self.current_image = None
@@ -45,7 +33,6 @@ class FeaturedImageCreatorToolkit:
             logging.debug(str(e))
             raise ToolkitException("Internal error while reading config file. Contact adinistrator")
     
-    @timeit
     def handle_text(self, title, subtitle):
 
         if len(title) == 0 or len(subtitle) == 0:
@@ -61,9 +48,9 @@ class FeaturedImageCreatorToolkit:
         return title, subtitle
 
 
-    @timeit
     def download_image(self, imageurl, img_save_to_path):
         
+        logging.debug("oo")
         current_image_path = None
 
         image_id_candidate = str(imageurl).split("-")[-1]
@@ -95,18 +82,16 @@ class FeaturedImageCreatorToolkit:
 
         return current_image_path
     
-    @timeit
     def load_base_image(self,img_input_path):
+        logging.debug("sdadsadas")
         img = Image.open(img_input_path)
         self.current_image = img.convert("RGBA")
       
-    @timeit
     def save_image(self, img_output_folder_path, output_format, quality_val):
         img_output_path = img_output_folder_path + str(uuid.uuid4().hex) + "." + output_format
         self.current_image.save(img_output_path, output_format, quality=quality_val)
         return img_output_path
     
-    @timeit
     def image_resize(self,basewidth):
 
         img = self.current_image
@@ -119,7 +104,6 @@ class FeaturedImageCreatorToolkit:
         return x,y
 
 
-    @timeit
     def image_white_to_transparent(self):
 
         img = self.current_image
@@ -135,7 +119,6 @@ class FeaturedImageCreatorToolkit:
         img.putdata(newData)
         self.current_image = img
 
-    @timeit
     def image_white_to_transparent_gradient(self):
         img = self.current_image
         x = np.asarray(img.convert('RGBA')).copy()
@@ -143,7 +126,7 @@ class FeaturedImageCreatorToolkit:
         output_img = Image.fromarray(x)
         self.current_image = output_img
 
-    @timeit
+
     def image_append_another_image(self,logo_image_path,use_transparency_mask,logo_location_x,logo_location_y):
         
         background_image = self.current_image
@@ -159,7 +142,7 @@ class FeaturedImageCreatorToolkit:
 
 
 
-    @timeit
+
     def image_add_text(self, font_path, font_size, text, text_location_x, text_location_y, text_color, textbox_length):
 
         img = self.current_image
@@ -172,7 +155,6 @@ class FeaturedImageCreatorToolkit:
 
 
 
-    @timeit
     def image_add_rectangle(self, rectangle_xo, rectangle_y0, rectangle_x1, rectangle_y1, rectangle_fill_color):
         
         img = self.current_image
@@ -181,7 +163,7 @@ class FeaturedImageCreatorToolkit:
         draw.rectangle((rectangle_xo, rectangle_y0, rectangle_x1, rectangle_y1), fill=rectangle_fill_color)
         self.current_image = img
 
-    @timeit
+
     def image_add_rectangle_transparent(self, rectangle_xo, rectangle_y0, rectangle_x1, rectangle_y1, rectangle_fill_color, rectangle_transparency):
  
         opacity = int(255 * rectangle_transparency)

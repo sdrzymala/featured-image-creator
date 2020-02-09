@@ -49,7 +49,7 @@ class FeaturedImageCreatorService:
 
             # add text
             textbox_length = 1200
-            font_path = '.\static\src\font\segoeuib.ttf'
+            font_path = "./static/src/font/segoeuib.ttf"
             font_size = 52
             text = title
             text_location_x = 15
@@ -60,7 +60,7 @@ class FeaturedImageCreatorService:
 
             # add text
             textbox_length = 1200
-            font_path = '.\static\src\font\segoeui.ttf'
+            font_path = './static/src/font/segoeui.ttf'
             font_size = 40
             text = subtitle
             text_location_x = 15
