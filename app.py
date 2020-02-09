@@ -33,7 +33,7 @@ def index():
 
     title = ""
     subtitle = ""
-    imageurl = ""
+    imageurl = "https://pixabay.com/photos/the-alps-switzerland-mountains-4817766/"
     generate_image_path = ""
     show_featured_image = False
 
