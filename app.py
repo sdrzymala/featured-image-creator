@@ -3,6 +3,7 @@ from flask import Flask, redirect, render_template, request, url_for, send_from_
 import os
 import sys
 from FeaturedImageCreatorService.FeaturedImageCreatorService import FeaturedImageCreatorService
+import git
 
 
 
@@ -16,6 +17,11 @@ if __name__ == "__main__":
     app.run()
 
 
+@app.route('/update_project', methods=['POST'])
+    def webhook():
+        if request.method == 'POST':
+            repo = git.Repo('/home/sdrzymala/featured-image-creator/')
+            origin = repo.remotes.origin
 
 
 @app.route("/", methods=["GET", "POST"])
