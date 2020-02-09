@@ -20,8 +20,9 @@ def webhook():
     repo = git.Repo('/home/sdrzymala/featured-image-creator/')
     
     try:
-        repo.git.fetch()
-        repo.git.merge("master")
+        msg = ""
+        msg += repo.git.fetch()
+        msg += repo.git.merge("master")
         return "ok"
     except Exception as e:
         return str(e)
