@@ -9,6 +9,9 @@ import re
 import urllib.request, json
 import requests
 
+class ToolkitException(Exception):
+    pass
+
 class FeaturedImageCreatorToolkit:
 
 
@@ -19,33 +22,26 @@ class FeaturedImageCreatorToolkit:
         self.return_msg = ""
 
         # read config file
-        with open('config.json') as f:
-            data = json.load(f)
-        self.pixabay_api_key = data["pixabay_api_key"]
+        try:
+            with open('config.json') as f:
+                data = json.load(f)
+            self.pixabay_api_key = data["pixabay_api_key"]
+        except Exception as e:
+            raise ToolkitException("Internal error while reading config file. Contact adinistrator")
     
-    def get_return_msg(self):
-        if self.return_msg == "":
-            completed_succesfully = True
-            self.return_msg = "Completed succesfully"
-        else:
-            self.return_msg = "There was an error: " + self.return_msg
-            completed_succesfully = False
-
-        return completed_succesfully, self.return_msg
 
     def handle_text(self, title, subtitle):
 
         if len(title) == 0 or len(subtitle) == 0:
-            self.return_msg += "Title and subtitle cannot be empty\n" 
+            raise ToolkitException("Title and subtitle cannot be empty")
         elif len(title) > 44 or len(subtitle) > 60:  
-            self.return_msg += "Title or subtitle too long\n"
+            raise ToolkitException("Title or subtitle too long")
         else:
-            #TODO handle texts, add spaces to justify
             title = title
             subtitle = subtitle
             #title = "a-B-c-D-e-F-g-H-i-J-k-L-m-N-o-P-r-S-t-U-w-Y-z"
             #subtitle = "A-b-C-d-E-f-G-h-I-j-K-l-M-n-O-p-R-s-T-u-W-y-Z-1-2-3-4-5-6-7-8"
-        
+
         return title, subtitle
 
 
@@ -58,19 +54,26 @@ class FeaturedImageCreatorToolkit:
         image_id = re.sub('\D', '', image_id_candidate)
         pixabay_api_call_url = "https://pixabay.com/api/" + "?key=" + self.pixabay_api_key + "&id=" + image_id
         
+        if image_id == '':
+            raise ToolkitException("There was an error when parsin the pixabay URL. Please check the URL and try again")
+
         try:
             with urllib.request.urlopen(pixabay_api_call_url) as url:
                 response = json.loads(url.read().decode())
                 image_url = response["hits"][0]["largeImageURL"]
                 
-                if image_url != None:
-                    Picture_request = requests.get(image_url)
-                    if Picture_request.status_code == 200:
-                        current_image_path = img_save_to_path + str(uuid.uuid4().hex) + ".png"
-                        with open(current_image_path, 'wb') as f:
-                            f.write(Picture_request.content)
         except Exception as e:
-            raise
+            raise ToolkitException("There as an error when downloading the image from pixabay. Check URL and try again")
+        
+        if image_url != None:
+            try:
+                Picture_request = requests.get(image_url)
+                if Picture_request.status_code == 200:
+                    current_image_path = img_save_to_path + str(uuid.uuid4().hex) + ".png"
+                    with open(current_image_path, 'wb') as f:
+                        f.write(Picture_request.content)
+            except:
+                raise ToolkitException("There as an error when downloading the image from pixabay. Please contact administrator")
 
         return current_image_path
     

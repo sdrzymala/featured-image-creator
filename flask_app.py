@@ -19,6 +19,7 @@ def index():
     title = ""
     subtitle = ""
     imageurl = ""
+    show_featured_image = False
 
     if request.method == "GET":
         response_msg = ""
@@ -34,7 +35,8 @@ def index():
         s = FeaturedImageCreatorService()
         generate_image_path, completed_succesfully, response_msg = s.generate_featured_image(title, subtitle, imageurl)
         
-        show_featured_image = True
+        if completed_succesfully:
+            show_featured_image = True
     
     return render_template("main_page.html", completed_succesfully=completed_succesfully, generate_image_path = generate_image_path, show_featured_image=show_featured_image, title = title, subtitle = subtitle, imageurl = imageurl,response_msg = response_msg)
 
