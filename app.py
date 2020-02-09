@@ -18,10 +18,10 @@ if __name__ == "__main__":
 @app.route('/update_project', methods=['GET','POST'])
 def webhook():
     repo = git.Repo('/home/sdrzymala/featured-image-creator')
+    
     try:
         repo.git.fetch()
-        repo.git.merge()
-
+        repo.git.merge("master")
         return "ok"
     except Exception as e:
         return str(e)
