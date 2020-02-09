@@ -11,12 +11,8 @@ import git
 app = Flask(__name__)
 
 
-
-
 if __name__ == "__main__":
     app.run()
-
-
 
 
 @app.route('/update_project', methods=['GET','POST'])
