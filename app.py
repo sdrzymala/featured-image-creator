@@ -20,8 +20,9 @@ def webhook():
     repo = git.Repo('/home/sdrzymala/featured-image-creator')
     
     try:
+        msg = ""
         origin = repo.remotes.origin
-        msg = origin.pull()
+        msg = str(origin.pull())
         return msg
     except Exception as e:
         return str(e)
