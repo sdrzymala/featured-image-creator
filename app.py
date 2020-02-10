@@ -11,8 +11,7 @@ import git
 app = Flask(__name__)
 
 
-if __name__ == "__main__":
-    app.run()
+
 
 # vide https://medium.com/@aadibajpai/deploying-to-pythonanywhere-via-github-6f967956e664
 @app.route('/update_project', methods=['GET','POST'])
@@ -65,3 +64,8 @@ def download():
     
     image_to_download_path = request.form["output_image_path"]
     return send_file(image_to_download_path, as_attachment=True)
+
+
+
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0')
