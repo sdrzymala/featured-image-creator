@@ -1,11 +1,13 @@
 # featured-image-creator
 Simple website to generate featured-images for wordpress blog
+![app screenshoot](misc/app_screenshoot_1.png)
+
 
 # what's inside
    * python - language
    * flask - framework
    * pixabay - api
-   * pythonanywhere - hosting
+   * docker - run, test and host
 
 # where
 Currently avaliable at: [sdrzymala.pythonanywhere.com](https://sdrzymala.pythonanywhere.com/)
