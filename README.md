@@ -13,3 +13,7 @@ Currently avaliable at: [sdrzymala.pythonanywhere.com](https://sdrzymala.pythona
 # docker
 build: `docker build . --tag img-featured-image-creator`   
 run: `docker run -d -p 5000:5000 img-featured-image-creator`
+
+# todo:
+* Move pixabay api key from file
+* Add dynamic logo position
