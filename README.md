@@ -11,7 +11,8 @@ Simple website to generate featured-images for wordpress blog
 Currently avaliable at: [sdrzymala.pythonanywhere.com](https://sdrzymala.pythonanywhere.com/)
 
 # docker
-build: `docker build . --tag img-featured-image-creator`   
+build: `docker build . --tag img-featured-image-creator -f dockerfiles/standard.Dockerfile`    
+build: `docker build . --tag img-featured-image-creator-alpine -f dockerfiles/alpine.Dockerfile`   
 run: `docker run -d -p 5000:5000 img-featured-image-creator`
 
 # todo:
