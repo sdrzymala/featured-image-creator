@@ -13,21 +13,6 @@ app = Flask(__name__)
 
 
 
-# vide https://medium.com/@aadibajpai/deploying-to-pythonanywhere-via-github-6f967956e664
-@app.route('/update_project', methods=['GET','POST'])
-def webhook():
-    repo = git.Repo('/home/sdrzymala/featured-image-creator')
-    
-    try:
-        msg = ""
-        origin = repo.remotes.origin
-        msg = str(origin.pull())
-        return "ok"
-    except Exception as e:
-        return str(e)
-    
-
-
 @app.route("/", methods=["GET", "POST"])
 def index():
 
