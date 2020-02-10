@@ -17,6 +17,6 @@ build: `docker build . --tag img-featured-image-creator -f dockerfiles/standard.
 build: `docker build . --tag img-featured-image-creator-alpine -f dockerfiles/alpine.Dockerfile`   
 run: `docker run -d -p 5000:5000 img-featured-image-creator`
 
-# todo:
+# todo
 * Move pixabay api key from file
 * Add dynamic logo position
