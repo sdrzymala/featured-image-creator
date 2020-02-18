@@ -1,0 +1,9 @@
+1. Push image to ACR
+az login
+az acr login --name cregsdwebapp
+docker tag img-featured-image-creator-alpine cregsdwebapp.azurecr.io/python/img-featured-image-creator-alpine
+docker push cregsdwebapp.azurecr.io/python/img-featured-image-creator-alpine
+
+2. Create web app on azure
+
+3. Configure web app - add WEBSITES_PORT:5000 to application settings

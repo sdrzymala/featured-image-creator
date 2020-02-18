@@ -128,6 +128,12 @@ class FeaturedImageCreatorToolkit:
         background_image = self.current_image
         logo_image = Image.open(logo_image_path)
 
+        logo_x, logo_y = logo_image.size
+        background_x, background_y = background_image.size
+
+        logo_location_x = background_x - logo_x  
+        logo_location_y = background_y - logo_y
+
         output_image = background_image.copy()
         if use_transparency_mask == True:
             output_image.paste(logo_image, (logo_location_x, logo_location_y), mask = logo_image)

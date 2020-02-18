@@ -3,8 +3,7 @@ from flask import Flask, redirect, render_template, request, url_for, send_from_
 import os
 import sys
 from FeaturedImageCreatorService.FeaturedImageCreatorService import FeaturedImageCreatorService
-import git
-
+from werkzeug.exceptions import HTTPException, Forbidden, NotFound, RequestTimeout, Unauthorized
 
 
 
@@ -50,6 +49,24 @@ def download():
     image_to_download_path = request.form["output_image_path"]
     return send_file(image_to_download_path, as_attachment=True)
 
+@app.errorhandler(NotFound)
+def page_not_found_handler(e: HTTPException):
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(Unauthorized)
+def unauthorized_handler(e: HTTPException):
+    return render_template('401.html'), 401
+
+
+@app.errorhandler(Forbidden)
+def forbidden_handler(e: HTTPException):
+    return render_template('403.html'), 403
+
+
+@app.errorhandler(RequestTimeout)
+def request_timeout_handler(e: HTTPException):
+    return render_template('408.html'), 408
 
 
 if __name__ == "__main__":

@@ -24,12 +24,17 @@
     <p>Create an image that can be user as featured image.</p>
     <div class="row">
       <form action="." method="POST">
-        <textarea style="resize: none;" class="form-control" name="title" placeholder="title" rows="1">{{ title }}</textarea>
-        <textarea style="resize: none;" class="form-control" name="subtitle" placeholder="subtitle" rows="1">{{ subtitle }}</textarea>
-        <textarea style="resize: none;" class="form-control" name="imageurl" placeholder="pixabay image website url" rows="1">{{ imageurl }}</textarea>
+        <textarea style="resize: none;" class="form-control" name="title" placeholder="title"
+          rows="1">{{ title }}</textarea>
+        <textarea style="resize: none;" class="form-control" name="subtitle" placeholder="subtitle"
+          rows="1">{{ subtitle }}</textarea>
+        <textarea style="resize: none;" class="form-control" name="imageurl" placeholder="pixabay image website url"
+          rows="1">{{ imageurl }}</textarea>
         <input type="submit" id="send" class="btn btn-success btn-sm" value="generate">
-        {% if not completed_succesfully %}<label for="send"><span class="text-danger">{{ response_msg }}</span></label>{% endif %}
-        {% if completed_succesfully %}<label for="send"><span class="text-success">{{ response_msg }}</span></label>{% endif %}
+        {% if not completed_succesfully %}<label for="send"><span
+            class="text-danger">{{ response_msg }}</span></label>{% endif %}
+        {% if completed_succesfully %}<label for="send"><span
+            class="text-success">{{ response_msg }}</span></label>{% endif %}
       </form>
     </div>
 
@@ -51,15 +56,15 @@
     <div class="row">
       <form action="download" method="POST">
         <textarea style="display:none" class="form-control" placeholder="subtitle"
-        name="output_image_path">{{generate_image_path}}</textarea>
-      <input type="submit" class="btn btn-success" value="download">
+          name="output_image_path">{{generate_image_path}}</textarea>
+        <input type="submit" class="btn btn-success btn-sm" value="download">
       </form>
     </div>
 
   </div>
   {% endif %}
 
-  
+
 </body>
 
 <footer class="navbar navbar-fixed-bottom">
