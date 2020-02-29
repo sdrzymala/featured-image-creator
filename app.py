@@ -6,10 +6,7 @@ from FeaturedImageCreatorService.FeaturedImageCreatorService import FeaturedImag
 from werkzeug.exceptions import HTTPException, Forbidden, NotFound, RequestTimeout, Unauthorized
 
 
-
 app = Flask(__name__)
-
-
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -41,13 +38,12 @@ def index():
     return render_template("main_page.html", completed_succesfully=completed_succesfully, generate_image_path = generate_image_path, show_featured_image=show_featured_image, title = title, subtitle = subtitle, imageurl = imageurl,response_msg = response_msg)
 
 
-
-
 @app.route("/download", methods=["GET", "POST"])
 def download():
     
     image_to_download_path = request.form["output_image_path"]
     return send_file(image_to_download_path, as_attachment=True)
+
 
 @app.errorhandler(NotFound)
 def page_not_found_handler(e: HTTPException):

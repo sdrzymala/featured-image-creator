@@ -12,7 +12,13 @@ import logging
 import time
 import traceback
 
+IMG_SAVE_TO_PATH = "./static/src/download/"
+OUTPUT_IMAGE_FOLDER_PATH = './static/output/'
 
+LOGO_IMAGE_PATH = './static/src/logo/logo_small.png'
+FONT_PATH_TITLE = "./static/src/font/segoeuib.ttf"
+FONT_PATH_SUBTITLE = "./static/src/font/segoeuib.ttf"
+FONT_PATH_SUBTITLE = './static/src/font/segoeui.ttf'
 
 class ToolkitException(Exception):
     pass
@@ -44,10 +50,8 @@ class FeaturedImageCreatorToolkit:
             #title = "a-B-c-D-e-F-g-H-i-J-k-L-m-N-o-P-r-S-t-U-w-Y-z"
             #subtitle = "A-b-C-d-E-f-G-h-I-j-K-l-M-n-O-p-R-s-T-u-W-y-Z-1-2-3-4-5-6-7-8"
 
-        return title, subtitle
 
-
-    def download_image(self, imageurl, img_save_to_path):
+    def download_image(self, imageurl):
         
         current_image_path = None
 
@@ -71,7 +75,7 @@ class FeaturedImageCreatorToolkit:
             try:
                 Picture_request = requests.get(image_url)
                 if Picture_request.status_code == 200:
-                    current_image_path = img_save_to_path + str(uuid.uuid4().hex) + ".png"
+                    current_image_path = IMG_SAVE_TO_PATH + str(uuid.uuid4().hex) + ".png"
                     with open(current_image_path, 'wb') as f:
                         f.write(Picture_request.content)
             except Exception as e:
@@ -84,8 +88,8 @@ class FeaturedImageCreatorToolkit:
         img = Image.open(img_input_path)
         self.current_image = img.convert("RGBA")
       
-    def save_image(self, img_output_folder_path, output_format, quality_val):
-        img_output_path = img_output_folder_path + str(uuid.uuid4().hex) + "." + output_format
+    def save_image(self, output_format, quality_val):
+        img_output_path = OUTPUT_IMAGE_FOLDER_PATH + str(uuid.uuid4().hex) + "." + output_format
         self.current_image.save(img_output_path, output_format, quality=quality_val)
         return img_output_path
     
@@ -123,10 +127,10 @@ class FeaturedImageCreatorToolkit:
         self.current_image = output_img
 
 
-    def image_append_another_image(self,logo_image_path,use_transparency_mask,logo_location_x,logo_location_y):
+    def image_append_another_image(self,use_transparency_mask,logo_location_x,logo_location_y):
         
         background_image = self.current_image
-        logo_image = Image.open(logo_image_path)
+        logo_image = Image.open(LOGO_IMAGE_PATH)
 
         logo_x, logo_y = logo_image.size
         background_x, background_y = background_image.size
@@ -145,7 +149,15 @@ class FeaturedImageCreatorToolkit:
 
 
 
-    def image_add_text(self, font_path, font_size, text, text_location_x, text_location_y, text_color, textbox_length):
+    def image_add_text(self, text_type, font_size, text, text_location_x, text_location_y, text_color, textbox_length):
+
+        if text_type == "TITLE":
+            font_path = FONT_PATH_TITLE
+        elif text_type == "SUBTITLE":
+            font_path = FONT_PATH_SUBTITLE
+        else:
+            raise ToolkitException("Internal error. Incorrect text type.")
+
 
         img = self.current_image
         draw = ImageDraw.Draw(img)

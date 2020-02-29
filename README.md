@@ -22,3 +22,4 @@ run:
 
 # todo
 * Move pixabay api key from file
+* Automate deployment
