@@ -135,8 +135,8 @@ class FeaturedImageCreatorToolkit:
         logo_x, logo_y = logo_image.size
         background_x, background_y = background_image.size
 
-        logo_location_x = background_x - logo_x  
-        logo_location_y = background_y - logo_y
+        logo_location_x = int((1200 - logo_x)/2)
+        logo_location_y = 0
 
         output_image = background_image.copy()
         if use_transparency_mask == True:

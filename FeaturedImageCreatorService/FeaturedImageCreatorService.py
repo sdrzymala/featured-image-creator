@@ -34,15 +34,15 @@ class FeaturedImageCreatorService:
 
             # add logo transparent
             use_transparency_mask = False
-            logo_location_x = 450
-            logo_location_y = 731
+            logo_location_x = 0
+            logo_location_y = 0
             featuredImage.image_append_another_image(use_transparency_mask, logo_location_x, logo_location_y)
 
             # add rectangle
             rectangle_xo = 0
-            rectangle_y0 = 400
+            rectangle_y0 = 570
             rectangle_x1 = 1200
-            rectangle_y1 = 550
+            rectangle_y1 = rectangle_y0 + 150
             rectangle_fill_color = (0,0,0)
             rectangle_transparency = 0.75
             featuredImage.image_add_rectangle_transparent(rectangle_xo, rectangle_y0, rectangle_x1, rectangle_y1, rectangle_fill_color, rectangle_transparency)
@@ -53,8 +53,8 @@ class FeaturedImageCreatorService:
             font_size = 52
             text = title
             text_location_x = 15
-            text_location_y = 410
-            text_color = (255,215,0)
+            text_location_y = rectangle_y0 + 10
+            text_color = (255,219,0,255)
             featuredImage.image_add_text(text_type, font_size, text, text_location_x, text_location_y, text_color, textbox_length)
 
             # add text
@@ -63,8 +63,8 @@ class FeaturedImageCreatorService:
             font_size = 40
             text = subtitle
             text_location_x = 15
-            text_location_y = 480
-            text_color = (255,215,0)
+            text_location_y = rectangle_y0 + 80
+            text_color = (255,219,0,255)
             featuredImage.image_add_text(text_type, font_size, text, text_location_x, text_location_y, text_color, textbox_length)
 
             ### save output image
