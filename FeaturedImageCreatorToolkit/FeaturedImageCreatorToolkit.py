@@ -21,7 +21,7 @@ FONT_PATH_SUBTITLE = "./static/src/font/segoeuib.ttf"
 FONT_PATH_SUBTITLE = './static/src/font/segoeui.ttf'
 
 IMAGES_DICTIONARY = {
-    'seequality_logo' : './static/src/logo/logo_small.png',
+    'seequality_logo' : './static/src/logo/logo_transparent_medium.PNG',
     'azure_logo' : './static/src/logo/logo_azure.png',
 }
 
@@ -144,12 +144,17 @@ class FeaturedImageCreatorToolkit:
             logo_x, logo_y = logo_image.size
             background_x, background_y = background_image.size
             logo_location_x = int((1200 - logo_x)/2)
-            logo_location_y = 0
+            logo_location_y = 110
         elif image_location == "right":
             logo_x, logo_y = logo_image.size
             background_x, background_y = background_image.size
-            logo_location_x = int((1200 - logo_x))
-            logo_location_y = 0
+            logo_location_x = int((1200 - logo_x)) - 10
+            logo_location_y = 580 # to be refactored, should be the same parameter as rectangle
+        elif image_location == "left":
+            logo_x, logo_y = logo_image.size
+            background_x, background_y = background_image.size
+            logo_location_x = 10
+            logo_location_y = 580 # to be refactored, should be the same parameter as rectangle
 
         output_image = background_image.copy()
         if use_transparency_mask == True:

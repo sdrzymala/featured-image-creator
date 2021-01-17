@@ -32,16 +32,21 @@ class FeaturedImageCreatorService:
             basewidth = 1200
             x,y = featuredImage.image_resize(basewidth)
 
+            # add rectangle
+            rectangle_xo = 0
+            rectangle_y0 = 100
+            rectangle_x1 = 1200
+            rectangle_y1 = rectangle_y0 + 150
+            rectangle_fill_color = (0,0,0)
+            rectangle_transparency = 0.75
+            featuredImage.image_add_rectangle_transparent(rectangle_xo, rectangle_y0, rectangle_x1, rectangle_y1, rectangle_fill_color, rectangle_transparency)
+
+
             # add logo transparent
-            use_transparency_mask = False
+            use_transparency_mask = True
             featuredImage.image_append_another_image(use_transparency_mask, image_location="center", image_type="seequality_logo")
 
-            # add azure logo if needed
-            if add_azure_logo:
-                use_transparency_mask = False
-                featuredImage.image_append_another_image(use_transparency_mask, image_location="right", image_type="azure_logo")
-
-
+          
             # add rectangle
             rectangle_xo = 0
             rectangle_y0 = 570
@@ -70,6 +75,14 @@ class FeaturedImageCreatorService:
             text_location_y = rectangle_y0 + 80
             text_color = (255,219,0,255)
             featuredImage.image_add_text(text_type, font_size, text, text_location_x, text_location_y, text_color, textbox_length)
+
+            # add azure logo if needed
+            if add_azure_logo:
+                use_transparency_mask = True
+                featuredImage.image_append_another_image(use_transparency_mask, image_location="left", image_type="azure_logo")
+                featuredImage.image_append_another_image(use_transparency_mask, image_location="right", image_type="azure_logo")
+
+
 
             ### save output image
             quality_val = 100
