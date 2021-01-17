@@ -14,7 +14,7 @@ class FeaturedImageCreatorService:
 
 
 
-    def generate_featured_image(self, title, subtitle, imageurl):
+    def generate_featured_image(self, title, subtitle, imageurl, add_azure_logo):
             
         try:
 
@@ -34,9 +34,13 @@ class FeaturedImageCreatorService:
 
             # add logo transparent
             use_transparency_mask = False
-            logo_location_x = 0
-            logo_location_y = 0
-            featuredImage.image_append_another_image(use_transparency_mask, logo_location_x, logo_location_y)
+            featuredImage.image_append_another_image(use_transparency_mask, image_location="center", image_type="seequality_logo")
+
+            # add azure logo if needed
+            if add_azure_logo:
+                use_transparency_mask = False
+                featuredImage.image_append_another_image(use_transparency_mask, image_location="right", image_type="azure_logo")
+
 
             # add rectangle
             rectangle_xo = 0

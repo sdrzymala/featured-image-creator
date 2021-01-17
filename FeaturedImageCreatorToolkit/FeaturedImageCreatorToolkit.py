@@ -20,6 +20,11 @@ FONT_PATH_TITLE = "./static/src/font/segoeuib.ttf"
 FONT_PATH_SUBTITLE = "./static/src/font/segoeuib.ttf"
 FONT_PATH_SUBTITLE = './static/src/font/segoeui.ttf'
 
+IMAGES_DICTIONARY = {
+    'seequality_logo' : './static/src/logo/logo_small.png',
+    'azure_logo' : './static/src/logo/logo_azure.png',
+}
+
 class ToolkitException(Exception):
     pass
 
@@ -127,16 +132,24 @@ class FeaturedImageCreatorToolkit:
         self.current_image = output_img
 
 
-    def image_append_another_image(self,use_transparency_mask,logo_location_x,logo_location_y):
+    def image_append_another_image(self,use_transparency_mask,image_location, image_type):
         
         background_image = self.current_image
-        logo_image = Image.open(LOGO_IMAGE_PATH)
 
-        logo_x, logo_y = logo_image.size
-        background_x, background_y = background_image.size
+        current_image_path = IMAGES_DICTIONARY[image_type]
 
-        logo_location_x = int((1200 - logo_x)/2)
-        logo_location_y = 0
+        logo_image = Image.open(current_image_path)
+
+        if image_location == "center":
+            logo_x, logo_y = logo_image.size
+            background_x, background_y = background_image.size
+            logo_location_x = int((1200 - logo_x)/2)
+            logo_location_y = 0
+        elif image_location == "right":
+            logo_x, logo_y = logo_image.size
+            background_x, background_y = background_image.size
+            logo_location_x = int((1200 - logo_x))
+            logo_location_y = 0
 
         output_image = background_image.copy()
         if use_transparency_mask == True:

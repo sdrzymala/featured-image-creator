@@ -15,10 +15,17 @@ Currently avaliable at: [https://featured-image-creator.azurewebsites.net/](http
 # docker
 build:   
 `docker build . --tag img-featured-image-creator -f dockerfiles/standard.Dockerfile`      
+
 `docker build . --tag img-featured-image-creator-alpine -f dockerfiles/alpine.Dockerfile`   
+
 run:   
-`docker run -d -p 5000:5000 img-featured-image-creator`
-`docker run -d -p 5000:5000 img-featured-image-creator-alpine`
+`docker run -d -p 5000:5000 img-featured-image-creator`   
+
+`docker run -d -p 5000:5000 img-featured-image-creator-alpine`   
+
+remove, rebuild and run:   
+`docker container rm imagegenerator --force && docker build . --tag img-featured-image-creator-alpine -f dockerfiles/alpine.Dockerfile && docker run -d -p 5000:5000 --name imagegenerator img-featured-image-creator-alpine`   
+
 
 # deployment
 0. Prepare 

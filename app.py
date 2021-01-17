@@ -15,6 +15,8 @@ def index():
     title = ""
     subtitle = ""
     imageurl = "https://pixabay.com/photos/the-alps-switzerland-mountains-4817766/"
+    add_azure_logo = False
+
     generate_image_path = ""
     show_featured_image = False
 
@@ -28,9 +30,15 @@ def index():
         title = request.form["title"]
         subtitle = request.form["subtitle"]
         imageurl = request.form["imageurl"]
+
+        try:
+            # if the checkbox is selected change the flat to true
+            add_azure_logo = bool(request.form["checkbox_add_azure_logo"])
+        except Exception as e:
+            pass
     
         s = FeaturedImageCreatorService()
-        generate_image_path, completed_succesfully, response_msg = s.generate_featured_image(title, subtitle, imageurl)
+        generate_image_path, completed_succesfully, response_msg = s.generate_featured_image(title, subtitle, imageurl, add_azure_logo)
         
         if completed_succesfully:
             show_featured_image = True
