@@ -38,7 +38,7 @@ class FeaturedImageCreatorService:
 
             # add azure logo if needed
             if add_azure_logo:
-                use_transparency_mask = False
+                use_transparency_mask = True
                 featuredImage.image_append_another_image(use_transparency_mask, image_location="right", image_type="azure_logo")
 
 
